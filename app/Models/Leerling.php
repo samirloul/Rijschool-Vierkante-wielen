@@ -10,11 +10,13 @@ class Leerling extends Model
 {
     use HasFactory;
 
+    // Databasetabel en primary key
     protected $table = 'Leerling';
     protected $primaryKey = 'Id';
     public $incrementing = true;
     public $timestamps = false;
 
+    // Velden die ingevuld mogen worden
     protected $fillable = [
         'GebruikerId',
         'RijbewijscategorieId',
@@ -24,11 +26,13 @@ class Leerling extends Model
         'Opmerkingen',
     ];
 
+    // Type conversie voor velden
     protected $casts = [
         'HeeftBeperking' => 'boolean',
         'IsActief' => 'boolean',
     ];
 
+    // Relatie naar User model
     public function gebruiker()
     {
         return $this->belongsTo(User::class, 'GebruikerId', 'Id');

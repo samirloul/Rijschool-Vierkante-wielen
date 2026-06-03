@@ -10,11 +10,13 @@ class Instructeur extends Model
 {
     use HasFactory;
 
+    // Databasetabel en primary key
     protected $table = 'Instructeur';
     protected $primaryKey = 'Id';
     public $incrementing = true;
     public $timestamps = false;
 
+    // Velden die ingevuld mogen worden
     protected $fillable = [
         'GebruikerId',
         'Rijbewijsnummer',
@@ -23,10 +25,12 @@ class Instructeur extends Model
         'Opmerkingen',
     ];
 
+    // Type conversie voor velden
     protected $casts = [
         'IsActief' => 'boolean',
     ];
 
+    // Relatie naar User model
     public function gebruiker()
     {
         return $this->belongsTo(User::class, 'GebruikerId', 'Id');
