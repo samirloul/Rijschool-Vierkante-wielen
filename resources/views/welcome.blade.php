@@ -15,7 +15,7 @@
         <header class="sticky top-0 z-30 border-b border-white/10 bg-slate-950/85 backdrop-blur">
             <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 <a href="{{ route('home') }}" class="text-lg font-semibold tracking-wide text-amber-300">Rijschool Vierkante Wielen</a>
-                <nav class="hidden items-center gap-6 text-sm text-slate-200 md:flex">
+                <nav class="flex items-center gap-6 text-sm text-slate-200">
                     <a href="{{ route('home') }}" class="transition hover:text-amber-300">Home</a>
                     <a href="{{ route('about') }}" class="transition hover:text-amber-300">Over ons</a>
                     <a href="{{ route('packages') }}" class="transition hover:text-amber-300">Lespakketten</a>
@@ -49,6 +49,7 @@
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a href="{{ route('packages') }}" class="rounded-full bg-cyan-300 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200">Bekijk lespakketten</a>
+                        <a href="{{ route('autos.overzicht') }}" class="rounded-full border border-emerald-300/60 px-6 py-3 text-sm font-semibold text-emerald-200 transition hover:border-emerald-200 hover:text-emerald-100">Bekijk auto's</a>
                         <a href="{{ route('contact') }}" class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold transition hover:border-cyan-300 hover:text-cyan-200">Plan een intake</a>
                     </div>
                     <div class="grid grid-cols-3 gap-3 pt-2 text-center text-sm">
@@ -101,7 +102,36 @@
                     </article>
                 </div>
             </section>
-        </main>
+            <section class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+                <div class="rounded-3xl border border-white/15 bg-gradient-to-br from-emerald-500/10 via-white/5 to-transparent p-8 md:p-12">
+                    <div class="grid gap-8 md:grid-cols-2 md:items-center">
+                        <div>
+                            <h2 class="text-3xl font-semibold text-white sm:text-4xl">
+                                Verken ons wagenpark
+                            </h2>
+                            <p class="mt-4 text-base leading-relaxed text-slate-300">
+                                Wil je weten met welke auto jij je rijlessen gaat volgen? Bekijk alle beschikbare voertuigen met hun specificaties, transmissie en huidige beschikbaarheid.
+                            </p>
+                            <p class="mt-3 text-sm text-emerald-200">
+                                ✓ Volledige auto-informatie<br>
+                                ✓ Transmissie-details (handgeschakeld/automatisch)<br>
+                                ✓ Beschikbaarheids-status
+                            </p>
+                            <a href="{{ route('autos.overzicht') }}" class="mt-6 inline-flex items-center rounded-full bg-emerald-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-300">
+                                Bekijk auto-overzicht
+                                <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="rounded-2xl bg-gradient-to-br from-slate-700/40 to-slate-900/40 p-6 border border-white/10">
+                            <svg class="h-full w-full text-emerald-400/30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M7 16a1 1 0 11-2 0 1 1 0 012 0zM19 16a1 1 0 11-2 0 1 1 0 012 0zM8 5a1 1 0 100-2 1 1 0 000 2zM21 9a3 3 0 11-6 0 3 3 0 016 0zM19.586 12.586l1.414-1.414A2 2 0 0018 10V8a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-2h2a2 2 0 000-4h-1.414z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>        </main>
 
         <footer class="border-t border-white/10 bg-slate-950/90">
             <div class="mx-auto grid w-full max-w-7xl gap-6 px-4 py-10 text-sm text-slate-300 sm:px-6 md:grid-cols-3 lg:px-8">
