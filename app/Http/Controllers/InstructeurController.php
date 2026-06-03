@@ -9,37 +9,10 @@ class InstructeurController extends Controller
 {
     public function index()
     {
-        $defaultConnection = DB::getDefaultConnection();
+        // Roep de stored procedure aan om instructeurs op te halen
+        $instructeurs = collect(DB::select('CALL sp_get_instructeurs()'));
 
-        if ($defaultConnection === 'sqlite') {
-            $instructeurs = collect(
-                DB::table('Instructeur as i')
-                    ->join('Gebruiker as g', 'g.Id', '=', 'i.GebruikerId')
-                    ->where('g.IsActief', 1)
-                    ->orderBy('g.Achternaam')
-                    ->orderBy('g.Voornaam')
-                    ->select(
-                        'i.Id AS InstructeurId',
-                        'g.Id AS GebruikerId',
-                        'g.Voornaam',
-                        'g.Tussenvoegsel',
-                        'g.Achternaam',
-                        'g.Email',
-                        'g.Telefoonnummer',
-                        'i.Rijbewijsnummer',
-                        'i.IndienstDatum',
-                        'i.Opmerkingen',
-                        'i.IsActief'
-                    )
-                    ->get()
-            )->map(function ($row) {
-                $row->VolledigeNaam = trim($row->Voornaam . ' ' . ($row->Tussenvoegsel ? $row->Tussenvoegsel . ' ' : '') . $row->Achternaam);
-                return $row;
-            });
-        } else {
-            $instructeurs = collect(DB::select('CALL sp_get_instructeurs()'));
-        }
-
+        // Log het aantal geladen instructeurs
         $count = $instructeurs->count();
         if ($count > 0) {
             Log::info("[Instructeurs] {$count} instructeurs succesvol geladen");
@@ -47,6 +20,7 @@ class InstructeurController extends Controller
             Log::warning('[Instructeurs] Geen instructeurs gevonden');
         }
 
+        // Zet error bericht als er geen instructeurs zijn
         $error = null;
         if ($instructeurs->isEmpty()) {
             $error = 'Geen instructeurs gevonden';

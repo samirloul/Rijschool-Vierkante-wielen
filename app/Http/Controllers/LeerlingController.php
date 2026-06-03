@@ -9,38 +9,10 @@ class LeerlingController extends Controller
 {
     public function index()
     {
-        $defaultConnection = DB::getDefaultConnection();
+        // Roep de stored procedure aan om leerlingen op te halen
+        $leerlingen = collect(DB::select('CALL sp_get_leerlingen()'));
 
-        if ($defaultConnection === 'sqlite') {
-            $leerlingen = collect(
-                DB::table('Leerling as l')
-                    ->join('Gebruiker as g', 'g.Id', '=', 'l.GebruikerId')
-                    ->join('Rijbewijscategorie as rc', 'rc.Id', '=', 'l.RijbewijscategorieId')
-                    ->where('g.IsActief', 1)
-                    ->orderBy('g.Achternaam')
-                    ->orderBy('g.Voornaam')
-                    ->select(
-                        'l.Id AS LeerlingId',
-                        'g.Id AS GebruikerId',
-                        'g.Voornaam',
-                        'g.Tussenvoegsel',
-                        'g.Achternaam',
-                        'g.Email',
-                        'g.Telefoonnummer',
-                        'rc.Naam AS RijbewijsCategorie',
-                        'l.HeeftBeperking',
-                        'l.OmschrijvingBeperking',
-                        'l.IsActief'
-                    )
-                    ->get()
-            )->map(function ($row) {
-                $row->VolledigeNaam = trim($row->Voornaam . ' ' . ($row->Tussenvoegsel ? $row->Tussenvoegsel . ' ' : '') . $row->Achternaam);
-                return $row;
-            });
-        } else {
-            $leerlingen = collect(DB::select('CALL sp_get_leerlingen()'));
-        }
-
+        // Log het aantal geladen leerlingen
         $count = $leerlingen->count();
         if ($count > 0) {
             Log::info("[Leerlingen] {$count} leerlingen succesvol geladen");
@@ -48,6 +20,7 @@ class LeerlingController extends Controller
             Log::warning('[Leerlingen] Geen leerlingen gevonden');
         }
 
+        // Zet error bericht als er geen leerlingen zijn
         $error = null;
         if ($leerlingen->isEmpty()) {
             $error = 'Geen leerlingen gevonden';
