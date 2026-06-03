@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LeerlingController extends Controller
 {
@@ -38,6 +39,13 @@ class LeerlingController extends Controller
             });
         } else {
             $leerlingen = collect(DB::select('CALL sp_get_leerlingen()'));
+        }
+
+        $count = $leerlingen->count();
+        if ($count > 0) {
+            Log::info("[Leerlingen] {$count} leerlingen succesvol geladen");
+        } else {
+            Log::warning('[Leerlingen] Geen leerlingen gevonden');
         }
 
         $error = null;

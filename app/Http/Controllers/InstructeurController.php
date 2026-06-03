@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class InstructeurController extends Controller
 {
@@ -37,6 +38,13 @@ class InstructeurController extends Controller
             });
         } else {
             $instructeurs = collect(DB::select('CALL sp_get_instructeurs()'));
+        }
+
+        $count = $instructeurs->count();
+        if ($count > 0) {
+            Log::info("[Instructeurs] {$count} instructeurs succesvol geladen");
+        } else {
+            Log::warning('[Instructeurs] Geen instructeurs gevonden');
         }
 
         $error = null;
