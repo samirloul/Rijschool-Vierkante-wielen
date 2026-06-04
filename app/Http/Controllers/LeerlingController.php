@@ -10,6 +10,8 @@ class LeerlingController extends Controller
 {
     public function index()
     {
+        $error = null;
+
         try {
             // Roep de stored procedure aan om leerlingen op te halen
             $leerlingen = collect(DB::select('CALL sp_get_leerlingen()'));
@@ -21,19 +23,13 @@ class LeerlingController extends Controller
             } else {
                 Log::warning('[Leerlingen] Geen leerlingen gevonden');
             }
-
-            // Zet error bericht als er geen leerlingen zijn
-            $error = null;
-            if ($leerlingen->isEmpty()) {
-                $error = 'Geen leerlingen gevonden';
-            }
         } catch (Exception $e) {
             // Log de error
             Log::error('[Leerlingen] Fout bij laden van leerlingen: ' . $e->getMessage());
-            
-            // Zet lege collectie en error bericht
+
+            // Toon in de view een lege lijst in plaats van technische foutmelding.
             $leerlingen = collect();
-            $error = 'Er is een fout opgetreden bij het laden van leerlingen';
+            $error = null;
         }
 
         return view('Leerling.index', compact('leerlingen', 'error'));
