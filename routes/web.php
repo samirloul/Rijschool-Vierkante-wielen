@@ -1,14 +1,21 @@
 <?php
 
+use App\Http\Controllers\BetalingOverzichtController;
+use App\Http\Controllers\RijlespakkettenOverzichtController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/over-ons', 'pages.about')->name('about');
-Route::view('/lespakketten', 'pages.packages')->name('packages');
+Route::get('/lespakketten', [RijlespakkettenOverzichtController::class, 'index'])
+    ->name('packages');
 Route::view('/contact', 'pages.contact')->name('contact');
+Route::get('betaling-overzicht', [BetalingOverzichtController::class, 'index'])
+    ->name('betaling.overzicht');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard/rijlespakketten-overzicht', [RijlespakkettenOverzichtController::class, 'dashboardIndex'])
+        ->name('dashboard.packages');
 });
 
 require __DIR__.'/settings.php';

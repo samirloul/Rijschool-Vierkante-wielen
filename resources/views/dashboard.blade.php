@@ -25,10 +25,9 @@
 
             <nav class="mt-6 space-y-2 text-sm">
                 <a href="#overzicht" class="block rounded-xl border border-cyan-300/30 bg-cyan-300/10 px-4 py-3 font-medium text-cyan-100">Overzicht</a>
-                <a href="#planning" class="block rounded-xl border border-white/10 bg-slate-800/70 px-4 py-3 text-slate-200 transition hover:border-cyan-300/30 hover:text-cyan-100">Planning</a>
-                <a href="#acties" class="block rounded-xl border border-white/10 bg-slate-800/70 px-4 py-3 text-slate-200 transition hover:border-cyan-300/30 hover:text-cyan-100">Snelle Acties</a>
-                <a href="#mededelingen" class="block rounded-xl border border-white/10 bg-slate-800/70 px-4 py-3 text-slate-200 transition hover:border-cyan-300/30 hover:text-cyan-100">Mededelingen</a>
-                <a href="#team" class="block rounded-xl border border-white/10 bg-slate-800/70 px-4 py-3 text-slate-200 transition hover:border-cyan-300/30 hover:text-cyan-100">Team Blokken</a>
+
+                <a href="{{ route('dashboard.packages') }}" class="block rounded-xl border border-white/10 bg-slate-800/70 px-4 py-3 text-slate-200 transition hover:border-cyan-300/30 hover:text-cyan-100">Rijlespakketten Overzicht</a>
+                <a href="{{ route('betaling.overzicht') }}" class="block rounded-xl border border-amber-300/30 bg-amber-300/10 px-4 py-3 font-medium text-amber-100 transition hover:bg-amber-300/20">Betaling Overzicht</a>
             </nav>
 
             <div class="mt-6 grid gap-2 text-sm">
