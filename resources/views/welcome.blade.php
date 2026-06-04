@@ -18,6 +18,9 @@
                 <nav class="hidden items-center gap-6 text-sm text-slate-200 md:flex">
                     <a href="{{ route('home') }}" class="transition hover:text-amber-300">Home</a>
                     <a href="{{ route('about') }}" class="transition hover:text-amber-300">Over ons</a>
+                    <a href="{{ route('packages') }}" class="transition hover:text-amber-300">Rijlespakketten overzicht</a>
+                    <a href="{{ route('instructeurs.index') }}" class="transition hover:text-amber-300">Instructeurs</a>
+                    <a href="{{ route('leerlingen.index') }}" class="transition hover:text-amber-300">Leerlingen</a>
                     <a href="{{ route('contact') }}" class="transition hover:text-amber-300">Contact</a>
                 </nav>
                 <div class="flex items-center gap-3 text-sm">
@@ -47,6 +50,9 @@
                         Praktisch, veilig en flexibel in jouw regio.
                     </p>
                     <div class="flex flex-wrap gap-4">
+                        <a href="{{ route('packages') }}" class="rounded-full bg-cyan-300 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200">Bekijk lespakketten</a>
+                        <a href="{{ route('instructeurs.index') }}" class="rounded-full border border-cyan-300 px-6 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-300/10">Bekijk instructeurs</a>
+                        <a href="{{ route('leerlingen.index') }}" class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200">Bekijk leerlingen</a>
                         <a href="{{ route('contact') }}" class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold transition hover:border-cyan-300 hover:text-cyan-200">Plan een intake</a>
                     </div>
                     <div class="grid grid-cols-3 gap-3 pt-2 text-center text-sm">
