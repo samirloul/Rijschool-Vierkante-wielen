@@ -5,6 +5,7 @@ use App\Http\Controllers\InstructeurController;
 use App\Http\Controllers\LeerlingController;
 use App\Http\Controllers\RijlespakkettenOverzichtController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RijlesController;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/over-ons', 'pages.about')->name('about');
@@ -22,4 +23,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('dashboard.packages');
 });
 
+Route::resource('rijlessen', RijlesController::class)
+    ->only(['index', 'show']);
 require __DIR__.'/settings.php';
