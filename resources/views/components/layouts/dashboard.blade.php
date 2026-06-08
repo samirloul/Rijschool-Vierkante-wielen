@@ -79,6 +79,14 @@
                    ])>
                     Betaling Overzicht
                 </a>
+                <a href="{{ route('autos.overzicht') }}"
+                   @class([
+                       'block rounded-xl border px-4 py-3 transition',
+                       'border-cyan-300/30 bg-cyan-300/10 font-medium text-cyan-100' => $active === 'Auto overzicht',
+                       'border-white/10 bg-slate-800/70 text-slate-200 hover:border-cyan-300/30 hover:text-cyan-100' => $active !== 'rijlessen',
+                   ])>
+                    Auto Overzicht
+                </a>
             </nav>
 
             <div class="mt-6 grid gap-2 text-sm">
