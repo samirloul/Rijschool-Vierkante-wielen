@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\auto;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
+use Throwable;
 
 /**
  * AutoController handles all vehicle/auto related operations
@@ -14,6 +18,62 @@ use Illuminate\Support\Facades\DB;
  */
 class AutoController extends Controller
 {
+    /**
+     * Show the form to add a new vehicle.
+     */
+    public function create(): View
+    {
+        return view('autos.create');
+    }
+
+    /**
+     * Store a newly created vehicle using a stored procedure.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'merk' => ['required', 'string', 'max:40'],
+                'model' => ['required', 'string', 'max:40'],
+                'transmissie' => ['required', 'in:handgeschakeld,automatisch'],
+                'beschikbaarheid' => ['required', 'in:beschikbaar,niet_beschikbaar'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Vul alle verplichte velden in.');
+        }
+
+        try {
+            DB::statement(
+                'CALL sp_VoegAutoToe(?, ?, ?, ?)',
+                [
+                    $request->string('merk')->trim()->value(),
+                    $request->string('model')->trim()->value(),
+                    $request->input('transmissie') === 'automatisch' ? 1 : 0,
+                    $request->input('beschikbaarheid') === 'beschikbaar' ? 1 : 0,
+                ]
+            );
+
+            return redirect()
+                ->route('autos.overzicht')
+                ->with('success', 'Auto succesvol toegevoegd.');
+        } catch (Throwable $exception) {
+            Log::error('Fout bij toevoegen auto via stored procedure', [
+                'message' => $exception->getMessage(),
+            ]);
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Auto kon niet worden toegevoegd.');
+        }
+    }
+
     /**
      * Display a listing of all available vehicles.
      *
@@ -70,7 +130,7 @@ class AutoController extends Controller
              * Log successful retrieval for debugging and monitoring purposes.
              * PSR-12: Proper logging at info level for successful operations.
              */
-            \Log::info('Voertuigen opgehaald met Rijles JOIN', [
+            Log::info('Voertuigen opgehaald met Rijles JOIN', [
                 'count' => $autos->count(),
                 'data' => $autos,
             ]);
@@ -78,13 +138,13 @@ class AutoController extends Controller
             return view('autos.overzicht', [
                 'autos' => $autos,
             ]);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             /**
              * Exception Handler: PSR-12 compliant error handling
              * Log the complete error trace for debugging
              * Return user-friendly error message to prevent data exposure
              */
-            \Log::error('Fout bij ophalen van voertuigen overzicht met JOIN', [
+            Log::error('Fout bij ophalen van voertuigen overzicht met JOIN', [
                 'message' => $exception->getMessage(),
                 'trace' => $exception->getTraceAsString(),
             ]);

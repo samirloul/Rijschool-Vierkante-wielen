@@ -45,7 +45,23 @@
                         <p class="text-lg text-slate-300">
                             Bekijk alle beschikbare auto's voor uw lessen
                         </p>
+                        @auth
+                            <div class="mt-4">
+                                <a
+                                    href="{{ route('autos.create') }}"
+                                    class="inline-flex items-center rounded-full bg-amber-400 px-5 py-2.5 font-semibold text-slate-900 transition hover:bg-amber-300"
+                                >
+                                    Auto Toevoegen
+                                </a>
+                            </div>
+                        @endauth
                     </div>
+
+                    @if (session('success'))
+                        <div class="mb-6 rounded-lg border border-green-500/40 bg-green-500/10 p-4 text-green-200">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                     <!-- Error Message -->
                     @if (isset($error))

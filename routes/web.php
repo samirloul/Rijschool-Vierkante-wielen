@@ -13,6 +13,8 @@ Route::get('/auto-overzicht', [AutoController::class, 'overzicht'])->name('autos
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('/auto-toevoegen', [AutoController::class, 'create'])->name('autos.create');
+    Route::post('/auto-toevoegen', [AutoController::class, 'store'])->name('autos.store');
 });
 
 require __DIR__.'/settings.php';
