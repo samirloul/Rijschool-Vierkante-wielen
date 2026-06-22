@@ -18,12 +18,14 @@
                         <a href="{{ route('leerlingen.index') }}" class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200">Bekijk leerlingen</a>
                         <a href="{{ route('rijlessen.index') }}" class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200">Bekijk rijlessen</a>
                         <a href="{{ route('contact') }}" class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold transition hover:border-cyan-300 hover:text-cyan-200">Plan een intake</a>
+                        <a href="{{ route('autos.overzicht') }}" class="rounded-full border border-emerald-300/60 px-6 py-3 text-sm font-semibold text-emerald-200 transition hover:border-emerald-200 hover:text-emerald-100">Bekijk auto's</a>
                     </div>
                     <div class="grid grid-cols-3 gap-3 pt-2 text-center text-sm">
                         <div class="rounded-2xl border border-white/15 bg-white/5 p-3">
                             <p class="text-2xl font-semibold text-amber-300">4</p>
                             <p class="text-slate-300">Instructeurs</p>
                         </div>
+                        
                         <div class="rounded-2xl border border-white/15 bg-white/5 p-3">
                             <p class="text-2xl font-semibold text-cyan-300">3</p>
                             <p class="text-slate-300">Lesauto&apos;s</p>

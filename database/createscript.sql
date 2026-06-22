@@ -39,8 +39,8 @@ CREATE TABLE
           Omschrijving VARCHAR(100) NOT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id)
      ) ENGINE = InnoDB;
 
@@ -60,8 +60,8 @@ CREATE TABLE
           Stad VARCHAR(40) NOT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id)
      ) ENGINE = InnoDB;
 
@@ -93,8 +93,8 @@ CREATE TABLE
           AdresId INT UNSIGNED NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           UNIQUE KEY UQ_Gebruiker_Email (Email),
           CONSTRAINT FK_Gebruiker_AdresId FOREIGN KEY (AdresId) REFERENCES Adres (Id)
@@ -232,8 +232,8 @@ CREATE TABLE
           IndienstDatum DATE NOT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           UNIQUE KEY UQ_Instructeur_GebruikerId (GebruikerId),
           CONSTRAINT FK_Instructeur_GebruikerId FOREIGN KEY (GebruikerId) REFERENCES Gebruiker (Id)
@@ -256,8 +256,8 @@ CREATE TABLE
           OmschrijvingBeperking VARCHAR(250) NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           UNIQUE KEY UQ_Leerling_GebruikerId (GebruikerId),
           CONSTRAINT FK_Leerling_GebruikerId FOREIGN KEY (GebruikerId) REFERENCES Gebruiker (Id),
@@ -303,18 +303,24 @@ CREATE TABLE
           IsElektrisch BIT NOT NULL DEFAULT 0,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           UNIQUE KEY UQ_Voertuig_Kenteken (Kenteken)
      ) ENGINE = InnoDB;
 
 INSERT INTO
-     Voertuig (Merk, Type, Kenteken, Bouwjaar, IsElektrisch)
+     Voertuig (Merk, Type, Kenteken, Bouwjaar, IsElektrisch, Opmerkingen)
 VALUES
-     ('Volkswagen', 'ID.3', 'VW-001-X', 2023, 1),
-     ('Tesla', 'Model 3', 'TS-002-Y', 2022, 1),
-     ('Opel', 'Astra (HB)', 'OP-003-Z', 2021, 0);
+     ('Volkswagen', 'ID.3', 'VW-001-X', 2023, 1, 'Volledig elektrisch, groot display'),
+     ('Tesla', 'Model 3', 'TS-002-Y', 2022, 1, 'Premium elektrisch voertuig'),
+     ('Opel', 'Astra (HB)', 'OP-003-Z', 2021, 0, 'Handgeschakelde hatchback'),
+     ('Toyota', 'Yaris', 'TY-004-A', 2022, 0, 'Compact en betrouwbaar'),
+     ('Hyundai', 'i30', 'HY-005-B', 2023, 0, 'Moderne hatchback met veel comfort'),
+     ('BMW', 'i4', 'BM-006-C', 2023, 1, 'Sportieve elektrische auto'),
+     ('Renault', 'Twingo E-Tech', 'RN-007-D', 2024, 1, 'Compacte stadse elektro'),
+     ('Ford', 'Fiesta', 'FD-008-E', 2021, 0, 'Vriendelijke beginner-auto'),
+     ('Honda', 'Civic', 'HD-009-F', 2022, 0, 'Betrouwbare sedan');
 
 CREATE TABLE
      Lespakket (
@@ -325,8 +331,8 @@ CREATE TABLE
           Omschrijving VARCHAR(250) NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id)
      ) ENGINE = InnoDB;
 
@@ -367,8 +373,8 @@ CREATE TABLE
           DatumAankoop DATE NOT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_LPL_LeerlingId FOREIGN KEY (LeerlingId) REFERENCES Leerling (Id),
           CONSTRAINT FK_LPL_LespakketId FOREIGN KEY (LespakketId) REFERENCES Lespakket (Id)
@@ -397,8 +403,8 @@ CREATE TABLE
           Reden VARCHAR(250) NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_Ziekmelding_InstructeurId FOREIGN KEY (InstructeurId) REFERENCES Instructeur (Id)
      ) ENGINE = InnoDB;
@@ -423,8 +429,8 @@ CREATE TABLE
           AnnuleringsReden VARCHAR(250) NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_Rijles_LeerlingId FOREIGN KEY (LeerlingId) REFERENCES Leerling (Id),
           CONSTRAINT FK_Rijles_InstructeurId FOREIGN KEY (InstructeurId) REFERENCES Instructeur (Id),
@@ -535,8 +541,8 @@ CREATE TABLE
           Resultaat VARCHAR(250) NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_Examen_LeerlingId FOREIGN KEY (LeerlingId) REFERENCES Leerling (Id),
           CONSTRAINT FK_Examen_InstructeurId FOREIGN KEY (InstructeurId) REFERENCES Instructeur (Id)
@@ -580,8 +586,8 @@ CREATE TABLE
           Tekst VARCHAR(500) NOT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_Opmerking_RijlesId FOREIGN KEY (RijlesId) REFERENCES Rijles (Id),
           CONSTRAINT FK_Opmerking_GebruikerId FOREIGN KEY (GebruikerId) REFERENCES Gebruiker (Id)
@@ -620,8 +626,8 @@ CREATE TABLE
           Doelrol ENUM ('Leerling', 'Instructeur', 'Administrator') NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_Melding_AfzenderId FOREIGN KEY (AfzenderId) REFERENCES Gebruiker (Id)
      ) ENGINE = InnoDB;
@@ -661,8 +667,8 @@ CREATE TABLE
           Status ENUM ('Concept', 'Verstuurd', 'Betaald', 'Vervallen') NOT NULL DEFAULT 'Concept',
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           UNIQUE KEY UQ_Factuur_Factuurnummer (Factuurnummer),
           CONSTRAINT FK_Factuur_LeerlingId FOREIGN KEY (LeerlingId) REFERENCES Leerling (Id)
@@ -741,8 +747,8 @@ CREATE TABLE
           Referentie VARCHAR(50) NULL DEFAULT NULL,
           IsActief BIT NOT NULL DEFAULT 1,
           Opmerkingen VARCHAR(250) NULL DEFAULT NULL,
-          DatumAangemaakt DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-          DatumGewijzigd DATETIME (6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+          DatumAangemaakt DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+          DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
           PRIMARY KEY (Id),
           CONSTRAINT FK_Betaling_FactuurId FOREIGN KEY (FactuurId) REFERENCES Factuur (Id)
      ) ENGINE = InnoDB;
