@@ -26,4 +26,63 @@ class Betaling extends Model
             $tot,
         ]);
     }
+
+    /**
+     * @return array<int, object>
+     */
+    public static function factuurOpties(): array
+    {
+        return DB::table('Factuur')
+            ->join('Leerling', 'Leerling.Id', '=', 'Factuur.LeerlingId')
+            ->join('Gebruiker', 'Gebruiker.Id', '=', 'Leerling.GebruikerId')
+            ->select([
+                'Factuur.Id',
+                'Factuur.Factuurnummer',
+                'Factuur.Factuurdatum',
+                'Factuur.Vervaldatum',
+                DB::raw("CONCAT(Gebruiker.Voornaam, ' ', IFNULL(Gebruiker.Tussenvoegsel, ''), ' ', Gebruiker.Achternaam) AS LeerlingNaam"),
+            ])
+            ->where('Factuur.IsActief', 1)
+            ->orderBy('Factuur.Factuurdatum', 'desc')
+            ->get()
+            ->all();
+    }
+
+    public static function bestaatVoorLeerlingEnPeriode(int $factuurId, string $betaaldatum): bool
+    {
+        $leerlingId = DB::table('Factuur')
+            ->where('Id', $factuurId)
+            ->value('LeerlingId');
+
+        if (! $leerlingId) {
+            return false;
+        }
+
+        return DB::table('Betaling')
+            ->join('Factuur', 'Factuur.Id', '=', 'Betaling.FactuurId')
+            ->where('Betaling.IsActief', 1)
+            ->where('Factuur.LeerlingId', (int) $leerlingId)
+            ->whereYear('Betaling.Betaaldatum', date('Y', strtotime($betaaldatum)))
+            ->whereMonth('Betaling.Betaaldatum', date('m', strtotime($betaaldatum)))
+            ->exists();
+    }
+
+    public static function toevoegenViaStoredProcedure(
+        int $factuurId,
+        float $bedrag,
+        string $betaaldatum,
+        string $betaalmethode,
+        ?string $referentie
+    ): void {
+        DB::statement(
+            'CALL sp_betaling_toevoegen(?, ?, ?, ?, ?)',
+            [
+                $factuurId,
+                $bedrag,
+                $betaaldatum,
+                $betaalmethode,
+                $referentie,
+            ]
+        );
+    }
 }

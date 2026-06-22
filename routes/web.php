@@ -17,9 +17,12 @@ Route::get('/leerlingen', [LeerlingController::class, 'index'])->name('leerlinge
 Route::view('/contact', 'pages.contact')->name('contact');
 Route::get('betaling-overzicht', [BetalingOverzichtController::class, 'index'])
     ->name('betaling.overzicht');
-    Route::view('/lespakketten', 'pages.packages')->name('packages');
+Route::post('betaling-overzicht', [BetalingOverzichtController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('betaling.overzicht.store');
+Route::view('/lespakketten', 'pages.packages')->name('packages');
 
-    // Auto routes - accessible to guests and authenticated users
+// Auto routes - accessible to guests and authenticated users
 Route::get('/auto-overzicht', [AutoController::class, 'overzicht'])->name('autos.overzicht');
 
 Route::middleware(['auth', 'verified'])->group(function () {
