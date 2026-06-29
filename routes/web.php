@@ -34,5 +34,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::resource('rijlessen', RijlesController::class)
-    ->only(['index', 'show']);
+    ->only(['index', 'show', 'create', 'store']);
+
 require __DIR__.'/settings.php';
