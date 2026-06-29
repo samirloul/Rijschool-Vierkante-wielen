@@ -25,7 +25,6 @@ class RijlesModel
 
     /**
      * Haal één rijles op via stored procedure op basis van ID.
-     * Retourneert een object of null als de rijles niet bestaat.
      */
     public static function show(int $id): object|null
     {
@@ -44,5 +43,37 @@ class RijlesModel
             Log::error('Fout bij ophalen rijles', ['id' => $id, 'fout' => $e->getMessage()]);
             return null;
         }
+    }
+
+    /**
+     * Sla een nieuwe rijles op via stored procedure.
+**/
+    public static function store(
+        int $leerlingId,
+        int $instructeurId,
+        int $voertuigId,
+        string $datumTijd,
+        int $duurMinuten,
+        int $ophaaladresId
+    ): int {
+        $pdo  = DB::getPdo();
+        $stmt = $pdo->prepare('CALL sp_rijles_store(?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$leerlingId, $instructeurId, $voertuigId, $datumTijd, $duurMinuten, $ophaaladresId]);
+
+        $nieuwId = null;
+        do {
+            $row = $stmt->fetch(\PDO::FETCH_OBJ);
+            if ($row && isset($row->NieuwId)) {
+                $nieuwId = (int) $row->NieuwId;
+                break;
+            }
+        } while ($stmt->nextRowset());
+
+        if (!$nieuwId) {
+            throw new \RuntimeException('sp_rijles_store retourneerde geen geldig ID.');
+        }
+
+        Log::info('sp_rijles_store aangeroepen', ['nieuw_id' => $nieuwId]);
+        return $nieuwId;
     }
 }

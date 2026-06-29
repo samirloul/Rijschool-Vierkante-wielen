@@ -4,6 +4,17 @@
     eyebrow="Dashboard"
     active="rijlessen"
 >
+    <div class="flex items-center justify-between">
+        <div>{{-- Ruimte voor eventuele filters later --}}</div>
+        <a href="{{ route('rijlessen.create') }}"
+           class="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-500 active:scale-95">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Les toevoegen
+        </a>
+    </div>
+
     {{-- Happy scenario melding --}}
     @if(session('success'))
         <div class="rounded-2xl border border-emerald-300/40 bg-emerald-300/10 p-4 text-sm text-emerald-100">
